@@ -73,12 +73,12 @@ def main():
 
   print("Creating job ... ")
   response = requests.get(url);
-  res = json.loads(response.content)
+  res = response.json()
   if res["code"] == 0:
     base64presignURL = res["presigned"]
     presignUploadURL = base64.b64decode(base64presignURL);  
     print("Uploading {}".format(os.path.abspath(params["filename"])))
-    with open(params["filename"], 'r') as data:
+    with open(params["filename"], 'rb') as data:
       requests.put(presignUploadURL, data=data)
     print("Upload successful")
     print("Job Created. Job ID: {}".format(res["jobid"]))

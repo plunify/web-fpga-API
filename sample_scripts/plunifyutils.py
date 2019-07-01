@@ -1,9 +1,13 @@
-import ConfigParser
 import sys
 import os
 import hmac
 import hashlib
 import time
+
+if sys.version_info[0] < 3:
+  import ConfigParser as configparser
+else:
+  import configparser as configparser
 
 
 def readCredentialsFile(file_path):
@@ -27,7 +31,7 @@ def readCredentialsFile(file_path):
   option_plunify_key_id = "plunify_key"
   option_plunify_password_id = "plunify_password"
   
-  parser = ConfigParser.ConfigParser()
+  parser = configparser.ConfigParser()
   parser.read(file_path)
   
   if not parser.has_option(section_id, option_plunify_apiid_id):
@@ -66,7 +70,7 @@ def readConfigFile(file_path, params):
 
   section_id = "project"
 
-  parser = ConfigParser.ConfigParser()
+  parser = configparser.ConfigParser()
   parser.read(file_path)
 
   for prop in params:
@@ -78,7 +82,11 @@ def readConfigFile(file_path, params):
 def getSignedURL(endpoint, params, plunify_password):
   params["unixtime"] = int(time.time()) 
   url = endpoint + "?" + "&".join([k + "=" + str(params[k]) for k in params])
-  sign = hmac.new(plunify_password, url, hashlib.sha256)
+
+  if(sys.version_info[0] < 3):
+    sign = hmac.new(plunify_password, url, hashlib.sha256)
+  else:
+    sign = hmac.new(bytes(plunify_password, 'latin-1'), bytes(url, 'latin-1'), hashlib.sha256)
   signature = sign.hexdigest()
   url = url + "&hmac=" + signature
   return url

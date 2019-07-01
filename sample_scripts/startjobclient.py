@@ -46,7 +46,7 @@ def main():
 
   print("Starting job {} ...".format(params["jobid"]))
   response = requests.get(url);
-  res = json.loads(response.content)
+  res = response.json()
   if res["code"] == 0:
     print("Job started");
   else:

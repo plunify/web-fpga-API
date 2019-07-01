@@ -39,7 +39,7 @@ def main():
 
   print("Listing jobs ... ")
   response = requests.get(url);
-  res = json.loads(response.content)
+  res = response.json()
   if res["code"] == 0:
     print(json.dumps(res["jobs"], indent=4))
     print("Total jobs: {}".format(res["totaljobs"]))
