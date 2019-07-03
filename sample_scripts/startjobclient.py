@@ -38,6 +38,7 @@ def main():
   params["key"] = plunify_key 
   params["servertype"] = None
   params["jobid"] = None
+  params["maxtime"] = 48
 
   if args.jobconfig: plunifyutils.readConfigFile(args.jobconfig, params)
 
