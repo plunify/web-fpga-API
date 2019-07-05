@@ -74,6 +74,8 @@ def main():
   print("Creating job ... ")
   response = requests.get(url);
   res = response.json()
+  if v: print(json.dumps(res))
+
   if res["code"] == 0:
     base64presignURL = res["presigned"]
     presignUploadURL = base64.b64decode(base64presignURL);  

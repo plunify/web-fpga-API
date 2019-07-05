@@ -1,9 +1,7 @@
 import plunifyutils
 import requests
 import json
-import base64
 import argparse
-import os
 import sys
 
 
@@ -56,6 +54,8 @@ def main():
   print("Starting job {} ...".format(params["jobid"]))
   response = requests.get(url);
   res = response.json()
+  if v: print(json.dumps(res))
+
   if res["code"] == 0:
     print("Job started");
   else:

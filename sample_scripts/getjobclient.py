@@ -4,7 +4,6 @@ import json
 import base64
 import argparse
 import os
-import sys
 
 
 def parseCommandLineParameters(args, params):
@@ -44,6 +43,8 @@ def main():
   print("Get job {} info ... ".format(params["jobid"]))
   response = requests.get(url);
   res = response.json()
+  if v: print(json.dumps(res))
+
   if res["code"] == 0:
     print("Job status: {}".format(res["action"]))
 

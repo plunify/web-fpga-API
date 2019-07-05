@@ -1,10 +1,7 @@
 import plunifyutils
 import requests
 import json
-import base64
 import argparse
-import os
-import sys
 
 
 def parseCommandLineParameters(args, params):
@@ -40,6 +37,8 @@ def main():
   print("Listing jobs ... ")
   response = requests.get(url);
   res = response.json()
+  if v: print(json.dumps(res))
+
   if res["code"] == 0:
     print(json.dumps(res["jobs"], indent=4))
     print("Total jobs: {}".format(res["totaljobs"]))
