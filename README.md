@@ -7,8 +7,8 @@ This repository contains sample scripts that call Plunify's Web FPGA API to run 
 3. Call Plunify Web FPGA API using your favourite language or tool!
 
 ## API reference
-Refer to the API description below:
-
+Refer to the API description below.  
+For more details please [view](sample-scripts/README.md) the API documentation.
 
 ### Create Job
 
@@ -31,3 +31,30 @@ End point: `http://cloudapi/v1/getjob`
 
 Returns information on all completed tasks.  
 End point: `http://cloudapi/v1/listjob`
+
+### Cancel Job
+
+Cancels the execution task with the specified Job ID.  
+The cloud instance will running your application will be terminated.  
+End point: `http://cloudapi/v1/canceljob`
+
+## Configuration File
+Parameters for API requests can be stored in an `ini` file.  
+Pass the ini file as a command line argument using the `-j` flag.
+Store parameters under the `project` section header.  
+Parameters are case sensitive and should match the script arguments exactly.
+
+Eg. To create a job, the toolname is required:
+```python
+python createjobclient.py -toolname vivado
+```
+Instead of passing the argument on the command line, store the parameter in an `ini` file.  
+```
+# config.ini
+[project]
+toolname=vivado 
+```
+And pass the ini file as the argument instead:
+```python
+python createjobclient.py -j config.ini
+```
