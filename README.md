@@ -8,7 +8,7 @@ This repository contains sample scripts that call Plunify's Web FPGA API to run 
 
 ## API reference
 Refer to the API description below.  
-For more details please [view](sample-scripts/README.md) the API documentation.
+For more details please [view](sample_scripts/README.md) the API documentation.
 
 ### Create Job
 
