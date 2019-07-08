@@ -37,24 +37,3 @@ End point: `http://cloudapi/v1/listjob`
 Cancels the execution task with the specified Job ID.  
 The cloud instance will running your application will be terminated.  
 End point: `http://cloudapi/v1/canceljob`
-
-## Configuration File
-Parameters for API requests can be stored in an `ini` file.  
-Pass the ini file as a command line argument using the `-j` flag.
-Store parameters under the `project` section header.  
-Parameters are case sensitive and should match the script arguments exactly.
-
-Eg. To create a job, the toolname is required:
-```python
-python createjobclient.py -toolname vivado
-```
-Instead of passing the argument on the command line, store the parameter in an `ini` file.  
-```
-# config.ini
-[project]
-toolname=vivado 
-```
-And pass the ini file as the argument instead:
-```python
-python createjobclient.py -j config.ini
-```
