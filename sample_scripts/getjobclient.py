@@ -37,6 +37,9 @@ def main():
   parseCommandLineParameters(args, params)
   plunifyutils.validateParameters(params)
 
+  outdir = os.path.abspath(params["outdir"])
+  params["outdir"] = None
+
   url = plunifyutils.getSignedURL(endpoint, params, plunify_password)
   if v: print(url)
 
@@ -53,7 +56,6 @@ def main():
 
     if len(files):
 
-      outdir = os.path.abspath(params["outdir"])
       if not os.path.exists(outdir) or not os.path.isdir(outdir):
         print("Creating output directory {}".format(outdir))
         os.makedirs(outdir);
