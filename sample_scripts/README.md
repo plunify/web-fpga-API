@@ -21,7 +21,13 @@ Use a `INI` file.
 ```
 # config.ini
 [project]
-toolname=vivado 
+toolvendor=xilinx
+toolname=vivado
+toolversion=2018.3
+platform=lad
+servertype=Class_RA3
+filename=examples.zip.enc
+maxtime=10
 ```
 Pass the `INI` file as the argument instead.
 ```python
