@@ -3,6 +3,7 @@ import os
 import hmac
 import hashlib
 import time
+from requests import Request
 
 if sys.version_info[0] < 3:
   import ConfigParser as configparser
@@ -80,15 +81,22 @@ def readConfigFile(file_path, params):
 
 
 def getSignedURL(endpoint, params, plunify_password):
-  params["unixtime"] = int(time.time()) 
-  url = endpoint + "?" + "&".join([k + "=" + str(params[k]) for k in params])
+  params["unixtime"] = int(time.time())
+  param_list = [(k, params[k]) for k in params]
+
+  p = Request('GET', endpoint, params=param_list).prepare()
+  url = p.url
 
   if(sys.version_info[0] < 3):
     sign = hmac.new(plunify_password, url, hashlib.sha256)
   else:
     sign = hmac.new(bytes(plunify_password, 'latin-1'), bytes(url, 'latin-1'), hashlib.sha256)
   signature = sign.hexdigest()
-  url = url + "&hmac=" + signature
+
+  param_list.append(("hmac", signature))
+  p = Request("GET", endpoint, params=param_list).prepare()
+  url = p.url
+
   return url
 # end getSignedURL
 
