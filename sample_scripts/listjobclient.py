@@ -11,7 +11,7 @@ def parseCommandLineParameters(args, params):
 
 
 def main():
-  endpoint = "https://test1api.plunify.com/cloudapi/v1/listjob"
+  endpoint = "https://prod8api.plunify.com/cloudapi/v1/listjob"
 
   parser = argparse.ArgumentParser()
   parser.add_argument("-v", help="Increase output verbosity", action="store_true")
@@ -36,8 +36,8 @@ def main():
 
   print("Listing jobs ... ")
   response = requests.get(url);
-  res = response.json()
   if v: print(json.dumps(res))
+  res = response.json()
 
   if res["code"] == 0:
     print(json.dumps(res["jobs"], indent=4))

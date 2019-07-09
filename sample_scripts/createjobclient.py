@@ -20,8 +20,8 @@ def parseCommandLineParameters(args, params):
 # end parseCommandLineParameters
 
 
-def createFileLenParam(params):
-  filename = os.path.abspath(params["filename"])
+def getFileLen(filename):
+  filename = os.path.abspath(filename)
 
   if os.path.isdir(filename):
     print("Specified file for upload {} is a directory".format(filename))
@@ -31,12 +31,12 @@ def createFileLenParam(params):
     print("Specified file for upload {} does not exist".format(filename))
     sys.exit()
 
-  params["filelen"] = str(os.path.getsize(filename))
+  return str(os.path.getsize(filename))
 # end createFileLenParam
 
 
 def main():
-  endpoint = "https://test1api.plunify.com/cloudapi/v1/createjob"
+  endpoint = "https://prod8api.plunify.com/cloudapi/v1/createjob"
 
   parser = argparse.ArgumentParser()
   parser.add_argument("-v", help="Increase output verbosity", action="store_true")
@@ -66,7 +66,8 @@ def main():
 
   parseCommandLineParameters(args, params)
   plunifyutils.validateParameters(params)
-  createFileLenParam(params)
+  params["filelen"] = getFileLen(params["filename"])
+  params["checksum"] = plunifyutils.md5(params["filename"])
 
   url = plunifyutils.getSignedURL(endpoint, params, plunify_password)
   if v: print(url)

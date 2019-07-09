@@ -107,3 +107,11 @@ def validateParameters(params):
       print("Required parameter {} not specified in config file or command line".format(prop))
       sys.exit()
 # end validateParameters
+
+def md5(fname):
+  fname = os.path.abspath(fname)
+  hash_md5 = hashlib.md5()
+  with open(fname, "rb") as f:
+    for chunk in iter(lambda: f.read(4096), b""):
+      hash_md5.update(chunk)
+  return hash_md5.hexdigest()

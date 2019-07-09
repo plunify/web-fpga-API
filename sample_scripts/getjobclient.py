@@ -15,7 +15,7 @@ def parseCommandLineParameters(args, params):
 
 
 def main():
-  endpoint = "https://test1api.plunify.com/cloudapi/v1/getjob"
+  endpoint = "https://prod8api.plunify.com/cloudapi/v1/getjob"
 
   parser = argparse.ArgumentParser()
   parser.add_argument("-v", help="Increase output verbosity", action="store_true")

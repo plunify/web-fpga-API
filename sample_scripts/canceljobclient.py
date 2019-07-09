@@ -8,7 +8,7 @@ def parseCommandLineParameters(args, params):
     params["jobid"] = args.jobid
 
 def main():
-  endpoint = "https://test1api.plunify.com/cloudapi/v1/canceljob"
+  endpoint = "https://prod8api.plunify.com/cloudapi/v1/canceljob"
 
   parser = argparse.ArgumentParser()
   parser.add_argument("-v", help="Increase output verbosity", action="store_true")
