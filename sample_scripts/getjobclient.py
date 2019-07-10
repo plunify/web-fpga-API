@@ -20,7 +20,7 @@ def main():
   parser = argparse.ArgumentParser()
   parser.add_argument("-v", help="Increase output verbosity", action="store_true")
   parser.add_argument("-c", "--credentials", metavar="credentials", help="Location of credential file. Default location is <home directory>/.plunify/credentials")
-  parser.add_argument("jobid", metavar="jobid", type=int, help="Starts the job with the specified Job ID.")
+  parser.add_argument("jobid", metavar="jobid", type=int, help="Downloads job information with specified Job ID.")
   parser.add_argument("-o", "--outdir", metavar="outdir", help="Ouput directory for downloaded files")
 
   args = parser.parse_args()
