@@ -33,55 +33,72 @@ Pass the `INI` file as the argument instead.
 ```python
 createjobclient.py -j config.ini
 ```
+## Documentation
+Detailed description for each script can be found below. All arguments are mandatory unless stated otherwise.
 
-## Create Job 
+### Create Job 
 **Issue a new job request**  
 `python createjobclient.py -toolvendor <toolvendor> -toolname <toolname> -toolversion <toolversion> -platform <platform> -filename <filename>`  
+**Ensure that file has been [encrypted](#encrypt-project-file) before calling this script**  
 Returns a job id which can be used to start, download or check the status of the job.
 
-### Arguments
-All arguments are mandatory unless stated otherwise.
+#### Arguments
 * toolvendor - Tool Vendor name.
 * toolname - Tool name.
 * toolversion - Tool version.
 * platform - Platform.
-* filename - Name of file to upload. **Ensure that file is encrypted before upload**
+* filename - Name of **encrypted** file to upload.
 
-## Start Job 
+### Start Job 
 **Issue a request to start compiling**  
 `python startjobclient.py -servertype <server type> -maxtime <maxtime> <jobid>`
 
-### Arguments
-All arguments are mandatory unless stated otherwise.
+#### Arguments
 * servertype - The server machine type to use for compiling. Check [here](https://cloud.plunify.com/faq#what_are_the_available_server_machine_types_for_each_cloud_region) for a list of available server machines.
 * maxtime (**Optional**) - The maximum allowed time for compilation in hours. The default is 48 hours.
 * jobid - Job id.
 
-## Cancel Job 
+### Cancel Job 
 **Cancels the job specified**  
 `python canceljobclient.py <jobid>`
 
-### Arguments
-All arguments are mandatory unless stated otherwise.
+#### Arguments
 * jobid - Job id.
 
-## Get Job 
-**Download result files for this job**  
-`python getjobclient.py -o <output directory> <jobid>`
+### Get Job 
+**Download result files for this job. Downloaded files will be decrypted automatically.**  
+`python getjobclientdecrypt.py -o <output directory> <jobid>`  
 Files (if any) will be downloaded into the output directory specified.
 
-### Arguments
-All arguments are mandatory unless stated otherwise.
+If you prefer to download files and [decrypt](#decrypt-project-file) manually.  
+`python getjobclient.py -o <output directory> <jobid>`
+
+#### Arguments
 * output directory - The output directory for downloaded files. Directory will be created if it does not exist.
 * jobid - Job id.
 
-## List Job 
+### List Job 
 **Returns job details**  
 `python listjobclient.py <type>`
 
-### Arguments
-All arguments are mandatory unless stated otherwise.
+#### Arguments
 * type - One of the below options.
   * all - All previously ran jobs are returned.
   * current - The latest job is returned.
 
+### Encrypt Project File
+`python encrypt.py -i <input file> -o <output file>`  
+The input file and output file arguments can be the same file.
+
+#### Arguments
+* input file - The file to be encrypted.
+* output file - The location of the encrypted file.
+
+### Decrypt Project File
+`python decrypt.py -i <input file> -o <output file>`  
+The input file and output file arguments can be the same file.
+
+#### Arguments
+* input file - The file to be decrypted.
+* output file - The location of the decrypted file.
+ 
