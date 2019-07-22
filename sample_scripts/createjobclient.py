@@ -82,6 +82,9 @@ def main():
   params["filelen"] = getFileLen(params["filename"])
   params["checksum"] = plunifyutils.md5(params["filename"])
 
+  filepath = os.path.abspath(params["filename"])
+  params["filename"] = os.path.basename(filepath)
+
   url = plunifyutils.getSignedURL(endpoint, params, plunify_password)
   if v: print(url)
 
@@ -93,8 +96,8 @@ def main():
   if res["code"] == 0:
     base64presignURL = res["presigned"]
     presignUploadURL = base64.b64decode(base64presignURL);  
-    print("Uploading {}".format(os.path.abspath(params["filename"])))
-    with open(params["filename"], 'rb') as data:
+    print("Uploading {}".format(filepath))
+    with open(filepath, 'rb') as data:
       requests.put(presignUploadURL, data=data)
     print("Upload successful")
     print("Job Created. Job ID: {}".format(res["jobid"]))
