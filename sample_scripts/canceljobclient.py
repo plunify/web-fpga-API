@@ -10,7 +10,10 @@ def parseCommandLineParameters(args, params):
 def main():
   endpoint = "https://prod8api.plunify.com/cloudapi/v1/canceljob"
 
-  parser = argparse.ArgumentParser()
+  description = ""
+  description += "Cancels the job specified.\n"
+
+  parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description=description)
   parser.add_argument("-v", help="Increase output verbosity", action="store_true")
   parser.add_argument("-c", "--credentials", metavar="credentials", help="Location of credential file. Default location is <home directory>/.plunify/credentials")
   parser.add_argument("jobid", metavar="jobid", type=int, help="Cancels the job with the specified Job ID.")

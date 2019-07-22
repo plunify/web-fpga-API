@@ -59,7 +59,13 @@ def parseCommandLineParameters(args, params):
 def main():
   endpoint = "https://prod8api.plunify.com/cloudapi/v1/getjob"
 
-  parser = argparse.ArgumentParser()
+  description = ""
+  description += "Download result files for the specified job.\n"
+  description += "Files will be downloaded into the output directory specified.\n"
+  description += "Note - Files are decrypted autmatically.\n"
+  description += "If you prefer to download and decrypt files manually, see getjobclient.py and decrypt.py.\n"
+
+  parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description=description)
   parser.add_argument("-v", help="Increase output verbosity", action="store_true")
   parser.add_argument("-c", "--credentials", metavar="credentials", help="Location of credential file. Default location is <home directory>/.plunify/credentials")
   parser.add_argument("jobid", metavar="jobid", type=int, help="Downloads and decrypts job information with the specified Job ID.")

@@ -38,7 +38,20 @@ def getFileLen(filename):
 def main():
   endpoint = "https://prod8api.plunify.com/cloudapi/v1/createjob"
 
-  parser = argparse.ArgumentParser()
+  description = ""
+  description += "Issues a new job request with the specified tool and platform.\n"
+  description += "The encrypted zip file will be uploaded to Plunify Cloud.\n"
+  description += "A job id is returned which is used to:\n"
+  description += "\n"
+  description += "1) Start Job (startjobclient.py)\n"
+  description += "2) Download Job (getjobclient.py)\n"
+  description += "3) Check Job Status (listjobclient.py)\n"
+  description += "4) Cancel Job (canceljobclient.py)\n"
+  description += "\n"
+  description += "Note - Ensure that the zip file has been encrypted. See encrypt.py for more information.\n"
+  description += "Note - This script DOES NOT start the job. Use startjobclient.py after calling this script to start the job.\n"
+
+  parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description=description)
   parser.add_argument("-v", help="Increase output verbosity", action="store_true")
   parser.add_argument("-c", "--credentials", metavar="credentials", help="Location of credential file. Default location is <home directory>/.plunify/credentials")
   parser.add_argument("-j", "--jobconfig", metavar="jobconfig", help="Location of job config file. Properties of this file will be overwritten by properties set on the command line.")
@@ -73,7 +86,7 @@ def main():
   if v: print(url)
 
   print("Creating job ... ")
-  response = requests.get(url);
+  response = requests.get(url)
   res = response.json()
   if v: print(json.dumps(res))
 
@@ -85,6 +98,7 @@ def main():
       requests.put(presignUploadURL, data=data)
     print("Upload successful")
     print("Job Created. Job ID: {}".format(res["jobid"]))
+    print("Job is created but NOT started yet. Use startjobclient.py to start the job");
   else:
     print("Error creating job: {}".format(res["message"]))
 # end main

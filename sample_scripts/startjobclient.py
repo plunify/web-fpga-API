@@ -18,7 +18,12 @@ def parseCommandLineParameters(args, params):
 def main():
   endpoint = "https://prod8api.plunify.com/cloudapi/v1/startjob"
 
-  parser = argparse.ArgumentParser()
+  description = ""
+  description += "Issues a request to start compiling the specified job with the specified server type.\n"
+  description += "The list of available server types can be found on https://cloud.plunify.com/faq.\n"
+  description += "Note - Call this script AFTER createjobclient.py.\n"
+
+  parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description=description)
   parser.add_argument("-v", help="Increase output verbosity", action="store_true")
   parser.add_argument("-c", "--credentials", metavar="credentials", help="Location of credential file. Default location is <home directory>/.plunify/credentials")
   parser.add_argument("-j", "--jobconfig", metavar="jobconfig", help="Location of job config file. Properties of this file will be overwritten by properties set on the command line.")

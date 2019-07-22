@@ -85,7 +85,10 @@ def decryptFile(key, in_filename, out_filename=None):
     out_file.close()
 
 def main():
-    parser = argparse.ArgumentParser()
+    description = ""
+    description += "Encrypts specified file.\n"
+
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description=description)
     parser.add_argument("-c", "--credentials", metavar="credentials", help="Location of credential file. Default location is <home directory>/.plunify/credentials")
     parser.add_argument("-i", "--input", metavar="input", help="Input file to encrypt")
     parser.add_argument("-o", "--output", metavar="output", help="Ouput encrypted file")
