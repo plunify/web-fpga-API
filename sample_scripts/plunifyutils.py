@@ -31,6 +31,7 @@ def readCredentialsFile(file_path):
   option_plunify_apiid_id = "plunify_apiid"
   option_plunify_key_id = "plunify_key"
   option_plunify_password_id = "plunify_password"
+  option_plunify_host = "plunify_host"
   
   parser = configparser.ConfigParser()
   parser.read(file_path)
@@ -53,7 +54,12 @@ def readCredentialsFile(file_path):
   else:
     plunify_password = parser.get(section_id, option_plunify_password_id)
 
-  return plunify_apiid, plunify_key, plunify_password
+  if not parser.has_option(section_id, option_plunify_host):
+    plunify_host = None
+  else:
+    plunify_host = parser.get(section_id, option_plunify_host)
+
+  return plunify_apiid, plunify_key, plunify_password, plunify_host
 # end readCredentialsFile
 
 

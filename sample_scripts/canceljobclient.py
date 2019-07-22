@@ -8,7 +8,8 @@ def parseCommandLineParameters(args, params):
     params["jobid"] = args.jobid
 
 def main():
-  endpoint = "https://prod8api.plunify.com/cloudapi/v1/canceljob"
+  host = "https://prod8api.plunify.com"
+  uri = "cloudapi/v1/canceljob"
 
   description = ""
   description += "Cancels the job specified.\n"
@@ -21,7 +22,10 @@ def main():
   args = parser.parse_args()
   v = args.v
 
-  plunify_apiid, plunify_key, plunify_password = plunifyutils.readCredentialsFile(args.credentials)
+  plunify_apiid, plunify_key, plunify_password, plunify_host = plunifyutils.readCredentialsFile(args.credentials)
+  if plunify_host:
+    host = plunify_host
+  endpoint = host + "/" + uri
 
   params = {}
   params["apiid"] = plunify_apiid
