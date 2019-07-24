@@ -35,7 +35,7 @@ def main():
   args = parser.parse_args()
   v = args.v
 
-  plunify_apiid, plunify_key, plunify_password. plunify_host = plunifyutils.readCredentialsFile(args.credentials)
+  plunify_apiid, plunify_key, plunify_password, plunify_host = plunifyutils.readCredentialsFile(args.credentials)
   if plunify_host:
     host = plunify_host
   endpoint = host + "/" + uri
