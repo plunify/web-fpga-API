@@ -95,7 +95,7 @@ def main():
 
     args = parser.parse_args()
 
-    plunify_apiid, plunify_key, plunify_password = plunifyutils.readCredentialsFile(args.credentials)
+    plunify_apiid, plunify_key, plunify_password, plunify_host = plunifyutils.readCredentialsFile(args.credentials)
 
     if not args.input or not args.output:
         print("Please specify input and output file to encrypt")
