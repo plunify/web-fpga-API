@@ -37,10 +37,11 @@ createjobclient.py -j config.ini
 Detailed description for each script can be found below. All arguments are mandatory unless stated otherwise.
 
 ### Create Job 
-**Issue a new job request**  
+**Issue a new job request with the specified tool and platform**  
 `python createjobclient.py -toolvendor <toolvendor> -toolname <toolname> -toolversion <toolversion> -platform <platform> -filename <filename>`  
+Returns a job id which can be used to [start](#start-job), [download](#get-job), [check](#list-job) and [cancel](#cancel-job) the status of the job. 
 **Ensure that file has been [encrypted](#encrypt-project-file) before calling this script**  
-Returns a job id which can be used to start, download or check the status of the job.
+This script does **not** start the job. Use [startjob](#start-job) after calling this script to start the job.
 
 #### Arguments
 * toolvendor - Tool Vendor name.
@@ -50,8 +51,9 @@ Returns a job id which can be used to start, download or check the status of the
 * filename - Name of **encrypted** file to upload.
 
 ### Start Job 
-**Issue a request to start compiling**  
+**Issue a request to start compiling the specified job with the specified server type**  
 `python startjobclient.py -servertype <server type> -maxtime <maxtime> <jobid>`
+Call this script **after** [createjob](#create-job)
 
 #### Arguments
 * servertype - The server machine type to use for compiling. Check [here](https://cloud.plunify.com/faq#what_are_the_available_server_machine_types_for_each_cloud_region) for a list of available server machines.
@@ -66,7 +68,7 @@ Returns a job id which can be used to start, download or check the status of the
 * jobid - Job id.
 
 ### Get Job 
-**Download result files for this job. Downloaded files will be decrypted automatically.**  
+**Download result files for the specified job. Downloaded files will be decrypted automatically.**  
 `python getjobclientdecrypt.py -o <output directory> <jobid>`  
 Files (if any) will be downloaded into the output directory specified.
 
