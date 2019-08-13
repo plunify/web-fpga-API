@@ -25,6 +25,7 @@ toolvendor=xilinx
 toolname=vivado
 toolversion=2018.3
 platform=lad
+platformver=0.33
 servertype=Class_RA3
 filename=examples.zip.enc
 maxtime=10
@@ -48,6 +49,7 @@ This script does **not** start the job. Use [startjob](#start-job) after calling
 * toolname - Tool name.
 * toolversion - Tool version.
 * platform - Platform.
+* platformver - Platform version. (Use platformver=latest for the latest platform version)
 * filename - Name of **encrypted** file to upload.
 
 ### Start Job 
