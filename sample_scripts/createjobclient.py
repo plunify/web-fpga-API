@@ -15,6 +15,8 @@ def parseCommandLineParameters(args, params):
     params["toolversion"] = args.toolversion
   if args.platform:
     params["platform"] = args.platform
+    if args.platformver:
+      params["platform"] = args.platformver
   if args.filename:
     params["filename"] = args.filename
 # end parseCommandLineParameters
@@ -60,6 +62,7 @@ def main():
   parser.add_argument("-toolname", metavar="toolname", help="Tool Name")
   parser.add_argument("-toolversion", metavar="toolversion", help="Tool Version")
   parser.add_argument("-platform", metavar="platform", help="Platform to run")
+  parser.add_argument("-platformver", metavar="platformver", help="Platform version to run")
   parser.add_argument("-filename", metavar="filename", help="Zip file to upload")
 
   args = parser.parse_args()
@@ -77,6 +80,7 @@ def main():
   params["toolname"] = None
   params["toolversion"] = None
   params["platform"] = None
+  params["platformver"] = None
   params["filename"] = None
 
   if args.jobconfig: plunifyutils.readConfigFile(args.jobconfig, params)
@@ -99,13 +103,13 @@ def main():
 
   if res["code"] == 0:
     base64presignURL = res["presigned"]
-    presignUploadURL = base64.b64decode(base64presignURL);  
+    presignUploadURL = base64.b64decode(base64presignURL)
     print("Uploading {}".format(filepath))
     with open(filepath, 'rb') as data:
       requests.put(presignUploadURL, data=data)
     print("Upload successful")
     print("Job Created. Job ID: {}".format(res["jobid"]))
-    print("Job is created but NOT started yet. Use startjobclient.py to start the job");
+    print("Job is created but NOT started yet. Use startjobclient.py to start the job")
   else:
     print("Error creating job: {}".format(res["message"]))
 # end main
