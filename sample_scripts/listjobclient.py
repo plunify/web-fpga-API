@@ -43,8 +43,8 @@ def main():
 
   print("Listing jobs ... ")
   response = requests.get(url);
-  if v: print(json.dumps(res))
   res = response.json()
+  if v: print(json.dumps(res))
 
   if res["code"] == 0:
     print(json.dumps(res["jobs"], indent=4))
