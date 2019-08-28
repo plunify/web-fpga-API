@@ -89,6 +89,7 @@ If you prefer to download files and [decrypt](#decrypt-project-file) manually.
 * type - One of the below options.
   * all - All previously ran jobs are returned.
   * current - The latest job is returned.
+  * jobid - The job with the specified id is returned.
 
 ### Encrypt Project File
 `python encrypt.py -i <input file> -o <output file>`  
