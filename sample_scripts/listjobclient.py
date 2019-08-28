@@ -9,6 +9,15 @@ def parseCommandLineParameters(args, params):
     params["type"] = args.type
 # end parseCommandLineParameters
 
+def validateTypeParameter(value):
+  if value == "all" or value == "current":
+    return value
+  else:
+    ivalue = int(value)
+    if ivalue <= 0:
+      raise argparse.ArgumentTypeError("%s is an invalid job id" % value)
+    else:
+      return ivalue
 
 def main():
   host = "https://prod8api.plunify.com"
@@ -20,7 +29,7 @@ def main():
   parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, description=description)
   parser.add_argument("-v", help="Increase output verbosity", action="store_true")
   parser.add_argument("-c", "--credentials", metavar="credentials", help="Location of credential file. Default location is <home directory>/.plunify/credentials")
-  parser.add_argument("type", metavar="type", choices=["all", "current"], help="If 'all', all jobs are returned. If 'current', the latest job will be returned")
+  parser.add_argument("type", metavar="type", type=validateTypeParameter, help="If 'all', all jobs are returned. If 'current', the latest job will be returned. If job id, the job with the job id will be returned.")
 
   args = parser.parse_args()
   v = args.v
@@ -42,7 +51,7 @@ def main():
   if v: print(url)
 
   print("Listing jobs ... ")
-  response = requests.get(url);
+  response = requests.get(url)
   res = response.json()
   if v: print(json.dumps(res))
 

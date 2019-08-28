@@ -54,7 +54,7 @@ def main():
   if v: print(url)
 
   print("Get job {} info ... ".format(params["jobid"]))
-  response = requests.get(url);
+  response = requests.get(url)
   res = response.json()
   if v: print(json.dumps(res))
 
